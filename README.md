@@ -37,7 +37,7 @@ This project implements a full **DevSecOps pipeline** to deploy a **Netflix Clon
 
 ## 🧱 Architecture
 
-![devsecops](https://imgur.com/vORuBnK.png)
+![Netflix DevSecOps Architecture](./netflix_devsecops_architecture.png)
 
 ---
 
