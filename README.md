@@ -88,6 +88,7 @@ This project implements a full **DevSecOps pipeline** to deploy a **Netflix Clon
 
 ## 📁 Application Source Code
 
+🔗 [Netflix Clone – Frontend Repository](https://github.com/abdellahomari87/Netflix-clone-abdellah)
 This repository is directly cloned and used in the Jenkins CI/CD pipeline for:
 
 - 🏗️ **Building the Docker image**  
