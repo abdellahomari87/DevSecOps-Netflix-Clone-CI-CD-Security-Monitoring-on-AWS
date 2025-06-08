@@ -32,7 +32,7 @@ This project implements a full **DevSecOps pipeline** to deploy a **Netflix Clon
 | **Orchestration**| Kubernetes (Kubeadm, kubectl)                   |
 | **Monitoring**   | Prometheus, Node Exporter, Grafana              |
 | **Cloud**        | AWS EC2, Security Groups                        |
-| **Notification** | Jenkins Email Extension (Gmail SMTP)           |
+| **Notification** | Jenkins Email Extension (Gmail SMTP)            |
 
 ---
 
@@ -84,7 +84,16 @@ This project implements a full **DevSecOps pipeline** to deploy a **Netflix Clon
 - ✔️ **Deploy to Kubernetes**  
 - ✔️ **Monitoring & Email Notification**
 
-📁 **Application Source Code**
+---
+
+## 📁 Application Source Code
+
+This repository is directly cloned and used in the Jenkins CI/CD pipeline for:
+
+- 🏗️ **Building the Docker image**  
+- 🧪 **Running SonarQube code analysis**  
+- 🔐 **Trivy and OWASP security scans**  
+- 🚀 **Deployment on Docker and Kubernetes clusters**
 
 ---
 
@@ -96,14 +105,3 @@ This repository includes:
 - 🐳 A **Dockerfile** to containerize the application  
 - ☸️ **Kubernetes manifests** (`Kubernetes/`) for deployment  
 - 📂 Source code under `src/` and UI components in `public/`  
-
-This repository is directly cloned and used in the Jenkins CI/CD pipeline for:
-
-- 🏗️ **Building the Docker image**  
-- 🧪 **Running SonarQube code analysis**  
-- 🔐 **Trivy and OWASP security scans**  
-- 🚀 **Deployment on Docker and Kubernetes clusters**
-
----
-
-🔒 *Secure. Scalable. Automated.* – A complete DevSecOps lifecycle on AWS 🚀
