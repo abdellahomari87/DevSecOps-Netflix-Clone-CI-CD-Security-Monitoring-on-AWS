@@ -78,3 +78,28 @@ This project implements a full **DevSecOps pipeline** to deploy a **Netflix Clon
 ✔ Deploy to Docker
 ✔ Deploy to Kubernetes
 ✔ Monitoring & Email Notification
+
+📁 Application Source Code
+The Netflix Clone application used in this pipeline is available in the following repository:
+
+🔗 Netflix Clone – Frontend Repository
+
+This repository includes:
+
+The React + TypeScript Netflix Clone frontend
+
+A Dockerfile to containerize the application
+
+Kubernetes manifests (Kubernetes/) for deployment
+
+Source code under src/ and UI components in public/
+
+This repository is directly cloned and used in the Jenkins CI/CD pipeline for:
+
+Building the Docker image
+
+Running SonarQube code analysis
+
+Trivy and OWASP security scans
+
+Deployment on Docker and Kubernetes clusters
