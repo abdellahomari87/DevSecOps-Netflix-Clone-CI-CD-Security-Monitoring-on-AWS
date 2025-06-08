@@ -79,6 +79,8 @@ This project implements a full **DevSecOps pipeline** to deploy a **Netflix Clon
 ✔ Deploy to Kubernetes
 ✔ Monitoring & Email Notification
 
+---
+
 ## 📁 Application Source Code
 
 🔗 Netflix Clone – Frontend Repository
