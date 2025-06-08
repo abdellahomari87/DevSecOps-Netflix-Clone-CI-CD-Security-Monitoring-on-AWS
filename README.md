@@ -1,6 +1,4 @@
-DevSecOps Netflix Clone – CI/CD, Security & Monitoring on AWS
-
-![devsecops](https://imgur.com/vORuBnK.png)
+# 🎬 DevSecOps Netflix Clone – CI/CD, Security & Monitoring on AWS
 
 This project implements a full **DevSecOps pipeline** to deploy a **Netflix Clone** on **AWS EC2**, featuring:
 - CI/CD automation with Jenkins
@@ -39,7 +37,7 @@ This project implements a full **DevSecOps pipeline** to deploy a **Netflix Clon
 
 ## 🧱 Architecture
 
-![Netflix DevSecOps Architecture](./screenshots/netflix_architecture.png)
+![devsecops](https://imgur.com/vORuBnK.png)
 
 ---
 
