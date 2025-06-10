@@ -57,25 +57,29 @@ pipeline {
 
         stage('OWASP Dependency Check') {
             steps {
-                sh '''
-                    # Create a persistent data directory for OWASP Dependency-Check
-                    # This avoids re-downloading the CVE database for every run
-                    mkdir -p /var/lib/jenkins/owasp-data
+                withCredentials([string(credentialsId: 'NVD_API_KEY', variable: 'NVD_API_KEY')]) {
+                    sh '''
+                       # Create a persistent data directory for OWASP Dependency-Check
+                       # This avoids re-downloading the CVE database for every run
+                       mkdir -p /var/lib/jenkins/owasp-data
 
-                    # Ensure the Jenkins user owns the directory (ignore error if already set)
-                    chown -R jenkins:jenkins /var/lib/jenkins/owasp-data || true
+                       # Ensure the Jenkins user owns the directory (ignore error if already set)
+                       chown -R jenkins:jenkins /var/lib/jenkins/owasp-data || true
 
-                    # Create output directory for the scan reports
-                    mkdir -p owasp-report
+                       # Create output directory for the scan reports
+                       mkdir -p owasp-report
 
-                    # Run the OWASP Dependency-Check scan
-                    dependency-check --data /var/lib/jenkins/owasp-data \
-                                     --project "Netflix" \
-                                     --scan ./ \
-                                     --format HTML \
-                                     --format XML \
-                                     --out owasp-report \
+                       # Run the OWASP Dependency-Check scan
+                       dependency-check --data /var/lib/jenkins/owasp-data \
+                                        --project "Netflix" \
+                                        --scan ./ \
+                                        --format HTML \
+                                        --format XML \
+                                        --out owasp-report \
+                                        --nvdApiKey ${NVD_API_KEY}
+                    
                     '''
+                }
             }
         }
 
