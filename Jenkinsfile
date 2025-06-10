@@ -57,12 +57,26 @@ pipeline {
         stage('OWASP Dependency Check') {
             steps {
                 sh '''
+                    # Create a persistent data directory for OWASP Dependency-Check
+                    # This avoids re-downloading the CVE database for every run
+                    mkdir -p /var/lib/jenkins/owasp-data
+
+                    # Ensure the Jenkins user owns the directory (ignore error if already set)
+                    chown -R jenkins:jenkins /var/lib/jenkins/owasp-data || true
+
+                    # Create output directory for the scan reports
                     mkdir -p owasp-report
-                    dependency-check --project "Netflix" --scan ./ --format "ALL" --out owasp-report
-                '''
+
+                    # Run the OWASP Dependency-Check scan
+                    dependency-check --data /var/lib/jenkins/owasp-data \
+                                     --project "Netflix" \
+                                     --scan ./ \
+                                     --format "ALL" \
+                                     --out owasp-report
+                   '''
             }
         }
-
+         
         stage('Trivy File System Scan') {
             steps {
                 sh '''
