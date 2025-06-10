@@ -57,23 +57,32 @@ pipeline {
 
         stage('OWASP Dependency Check') {
             steps {
-                dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit --nvdApiKey ${NVD_API_KEY}', odcInstallation: 'DP-Check'
-                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+                sh '''
+                    mkdir -p owasp-report
+                    dependency-check --scan . \
+                                     --format HTML,XML \
+                                     --out owasp-report \
+                                     --project Netflix \
+                                     --disableYarnAudit \
+                                     --disableNodeAudit \
+                                     --nvdApiKey ${NVD_API_KEY}
+                ''' // ⬅️ Generates HTML & XML
             }
         }
-         
+
         stage('Trivy File System Scan') {
             steps {
                 sh '''
-                    trivy fs . > trivyfs.txt || true
-                '''
+                    mkdir -p trivy-report
+                    trivy fs . --format html --output trivy-report/trivy-report.html || true
+                ''' // ⬅️ Generates HTML
             }
         }
     }
 
     post {
         always {
-            archiveArtifacts artifacts: '**/*.json, **/trivyfs.txt, **/owasp-report/**', allowEmptyArchive: true
+            archiveArtifacts artifacts: '**/*.json, trivy-report/trivy-report.html, owasp-report/dependency-check-report.html', allowEmptyArchive: true
         }
     }
 }
