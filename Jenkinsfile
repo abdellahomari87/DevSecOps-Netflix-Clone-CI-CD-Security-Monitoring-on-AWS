@@ -66,6 +66,7 @@ pipeline {
                                      --disableYarnAudit \
                                      --disableNodeAudit \
                                      --nvdApiKey ${NVD_API_KEY}
+                                     --data /var/lib/jenkins/owasp-data
                 ''' // ⬅️ Generates HTML & XML
             }
         }
