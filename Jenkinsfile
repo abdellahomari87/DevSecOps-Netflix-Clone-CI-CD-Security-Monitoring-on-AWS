@@ -31,7 +31,7 @@ pipeline {
                         -Dsonar.projectKey=Netflix \
                         -Dsonar.projectName=Netflix \
                         -Dsonar.sources=src \
-                        -Dsonar.host.url=http://<your-sonarqube-ip>:9000
+                        -Dsonar.host.url=http://localhost:9000
                     '''
                 }
             }
