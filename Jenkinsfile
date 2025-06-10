@@ -31,8 +31,7 @@ pipeline {
                         -Dsonar.projectKey=Netflix \
                         -Dsonar.projectName=Netflix \
                         -Dsonar.sources=src \
-                        -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
-                        -Dsonar.host.url=http://localhost:9000
+                        -Dsonar.host.url=http://<your-sonarqube-ip>:9000
                     '''
                 }
             }
@@ -44,6 +43,37 @@ pipeline {
                     waitForQualityGate abortPipeline: true
                 }
             }
+        }
+
+        stage('NPM Install & Audit') {
+            steps {
+                sh '''
+                    npm install
+                    npm audit --json > npm-audit-report.json || true
+                '''
+            }
+        }
+
+        stage('OWASP Dependency Check') {
+            steps {
+                sh '''
+                    dependency-check --project "Netflix" --scan ./ --format "ALL" --out owasp-report
+                '''
+            }
+        }
+
+        stage('Trivy File System Scan') {
+            steps {
+                sh '''
+                    trivy fs . > trivyfs.txt || true
+                '''
+            }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: '**/*.json, **/trivyfs.txt, **/owasp-report/**', allowEmptyArchive: true
         }
     }
 }
