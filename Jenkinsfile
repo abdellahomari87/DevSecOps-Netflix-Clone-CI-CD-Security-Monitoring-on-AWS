@@ -57,19 +57,23 @@ pipeline {
 
         stage('OWASP Dependency Check') {
             steps {
-                sh '''
-                    mkdir -p owasp-report
-                    dependency-check --scan . \
-                                     --format HTML --format XML \
-                                     --out owasp-report \
-                                     --project Netflix \
-                                     --disableYarnAudit \
-                                     --disableNodeAudit \
-                                     --nvdApiKey ${NVD_API_KEY}
-                                     --data /var/lib/jenkins/owasp-data
-                ''' // ⬅️ Generates HTML & XML
+                withCredentials([string(credentialsId: 'NVD_API_KEY', variable: 'NVD_API_KEY')]) {
+                    sh '''
+                        mkdir -p owasp-report
+                        dependency-check \
+                          --scan . \
+                          --format HTML \
+                          --format XML \
+                          --out owasp-report \
+                          --project Netflix \
+                          --disableYarnAudit \
+                          --disableNodeAudit \
+                          --nvdApiKey ${NVD_API_KEY}
+                    '''
+                }
             }
         }
+
 
         stage('Trivy File System Scan') {
             steps {
