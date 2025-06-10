@@ -60,7 +60,7 @@ pipeline {
                 sh '''
                     mkdir -p owasp-report
                     dependency-check --scan . \
-                                     --format HTML,XML \
+                                     --format HTML --format XML \
                                      --out owasp-report \
                                      --project Netflix \
                                      --disableYarnAudit \
