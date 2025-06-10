@@ -22,5 +22,3 @@ sudo systemctl start jenkins
 
 # Allow Jenkins port through the firewall
 sudo ufw allow 8080/tcp
-sudo ufw enable
-sudo ufw status verbose
