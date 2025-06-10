@@ -57,6 +57,7 @@ pipeline {
         stage('OWASP Dependency Check') {
             steps {
                 sh '''
+                    mkdir -p owasp-report
                     dependency-check --project "Netflix" --scan ./ --format "ALL" --out owasp-report
                 '''
             }
