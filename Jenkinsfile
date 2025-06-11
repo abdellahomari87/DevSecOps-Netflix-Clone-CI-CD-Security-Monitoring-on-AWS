@@ -76,7 +76,7 @@ pipeline {
                                         --format HTML \
                                         --format XML \
                                         --out owasp-report \
-                                        --nvdApiKey ${NVD_API_KEY}
+                                        --nvdApiKey $NVD_API_KEY
                     
                     '''
                 }
