@@ -59,6 +59,7 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'NVD_API_KEY', variable: 'NVD_API_KEY')]) {
                     sh '''
+                        #!/bin/bash
                         echo "OWASP Dependency Check starting with API key ending in: ${NVD_API_KEY: -4}"
                         mkdir -p owasp-report
                         mkdir -p /var/lib/jenkins/owasp-data || true
