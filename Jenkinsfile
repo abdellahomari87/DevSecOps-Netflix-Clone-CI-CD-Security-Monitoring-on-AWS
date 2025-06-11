@@ -8,7 +8,6 @@ pipeline {
 
     environment {
         SCANNER_HOME = tool 'sonar-scanner'
-        NVD_API_KEY = credentials('NVD_API_KEY')
     }
 
     stages {
