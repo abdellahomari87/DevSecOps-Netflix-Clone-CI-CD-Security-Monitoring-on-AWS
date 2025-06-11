@@ -59,7 +59,7 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'NVD_API_KEY', variable: 'NVD_API_KEY')]) {
                     sh '''
-                    bash -c "
+                    bash -c '
                         echo "[DEBUG] OWASP Dependency Check starting..."
                         echo "[DEBUG] API Key ends with: ${NVD_API_KEY: -4}"
                         
@@ -78,6 +78,7 @@ pipeline {
                             --disableNodeAudit \
                             --nvdApiDelay 6000 \
                             --nvdApiKey $NVD_API_KEY
+                    '
                     '''
                 }
             }
