@@ -84,6 +84,7 @@ pipeline {
         stage('Trivy File System Scan') {
             steps {
                 sh '''
+                    #!/bin/bash
                     mkdir -p trivy-report
                     trivy fs . \
                         --format json \
