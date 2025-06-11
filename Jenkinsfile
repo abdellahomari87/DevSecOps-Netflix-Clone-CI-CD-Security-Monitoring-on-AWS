@@ -76,6 +76,7 @@ pipeline {
                                         --format XML \
                                         --out owasp-report \
                                         --nvdApiKey $NVD_API_KEY
+                                        --nvdApiDelay 3000
                     
                     '''
                 }
