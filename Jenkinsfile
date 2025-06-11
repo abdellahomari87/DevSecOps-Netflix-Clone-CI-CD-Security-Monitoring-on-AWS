@@ -60,6 +60,9 @@ pipeline {
                 withCredentials([string(credentialsId: 'NVD_API_KEY', variable: 'NVD_API_KEY')]) {
                     sh '''
                         #!/bin/bash
+                        echo "[DEBUG] OWASP Dependency Check starting..."
+                        echo "[DEBUG] API Key ends with: ${NVD_API_KEY: -4}"
+                        
                         echo "[INFO] OWASP Dependency Check"
                         mkdir -p owasp-report
                         mkdir -p /var/lib/jenkins/owasp-data || true
@@ -73,7 +76,7 @@ pipeline {
                             --out owasp-report \
                             --disableYarnAudit \
                             --disableNodeAudit \
-                            --nvdApiDelay 3000 \
+                            --nvdApiDelay 6000 \
                             --nvdApiKey $NVD_API_KEY
                     '''
                 }
