@@ -4,7 +4,7 @@
 # Script Name : install_jenkins_docker.sh
 # Purpose     : Install Jenkins using Docker with persistent volume
 # OS Support  : Ubuntu (tested on EC2 Ubuntu 20.04+ / 24.04+)
-# Author      : You 😊
+# Author      : Me 😊
 # -----------------------------------------------------------------------------
 
 echo "➡️  Updating the system and installing dependencies..."
