@@ -60,7 +60,7 @@ pipeline {
                 withCredentials([string(credentialsId: 'NVD_API_KEY', variable: 'NVD_API_KEY')]) {
                     sh '''
                         #!/bin/bash
-                        echo "OWASP Dependency Check starting with API key ending in: ${NVD_API_KEY: -4}"
+                        echo "[INFO] OWASP Dependency Check"
                         mkdir -p owasp-report
                         mkdir -p /var/lib/jenkins/owasp-data || true
                         chown -R jenkins:jenkins /var/lib/jenkins/owasp-data || true
@@ -69,7 +69,6 @@ pipeline {
                             --data /var/lib/jenkins/owasp-data \
                             --project "Netflix" \
                             --scan ./ \
-                            --format HTML \
                             --format XML \
                             --out owasp-report \
                             --disableYarnAudit \
@@ -79,7 +78,7 @@ pipeline {
                     '''
                 }
             }
-        }   
+        }
 
         stage('Trivy File System Scan') {
             steps {
@@ -92,11 +91,17 @@ pipeline {
                 '''
             }
         }
+
+        stage('Publish OWASP Report') {
+            steps {
+                dependencyCheckPublisher pattern: 'owasp-report/dependency-check-report.xml'
+            }
+        }
     }
 
     post {
         always {
-            archiveArtifacts artifacts: '**/*.json, owasp-report/*, dependency-check-report.xml', allowEmptyArchive: true
+            archiveArtifacts artifacts: '**/*.json, owasp-report/**/*', allowEmptyArchive: true
         }
     }
 }
