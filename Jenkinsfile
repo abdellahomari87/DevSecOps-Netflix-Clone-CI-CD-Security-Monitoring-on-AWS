@@ -104,7 +104,7 @@ pipeline {
 
     post {
         always {
-            archiveArtifacts artifacts: '**/*.json, owasp-report/**/*', allowEmptyArchive: true
+            archiveArtifacts artifacts: '**/trivy-report/*.json, owasp-report/*.*', allowEmptyArchive: true
         }
     }
 }
