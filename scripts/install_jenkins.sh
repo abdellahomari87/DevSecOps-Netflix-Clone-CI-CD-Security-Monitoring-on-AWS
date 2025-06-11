@@ -24,6 +24,7 @@ sudo docker volume create jenkins_data
 echo "🐳 Pulling and running the Jenkins container on ports 8080 and 50000..."
 sudo docker run -d \
   --name jenkins \
+  --restart unless-stopped \
   -p 8080:8080 -p 50000:50000 \
   -v jenkins_data:/var/jenkins_home \
   jenkins/jenkins:lts
