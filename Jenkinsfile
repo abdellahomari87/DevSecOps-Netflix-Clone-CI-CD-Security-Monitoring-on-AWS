@@ -67,15 +67,18 @@ pipeline {
             steps {
                 sh '''
                     mkdir -p trivy-report
-                    trivy fs . --format html --output trivy-report/trivy-report.html || true
-                ''' // ⬅️ Generates HTML
+                    trivy fs . \
+                        --format template \
+                        --template "@contrib/html.tpl" \
+                        --output trivy-report/trivy-report.html || true
+                '''
             }
         }
     }
 
     post {
         always {
-            archiveArtifacts artifacts: '**/*.json, trivy-report/trivy-report.html, owasp-report/dependency-check-report.html', allowEmptyArchive: true
+            archiveArtifacts artifacts: '**/*.json, trivy-report/*, dependency-check-report.xml', allowEmptyArchive: true
         }
     }
 }
