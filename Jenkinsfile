@@ -57,11 +57,25 @@ pipeline {
         stage('OWASP Dependency Check') {
             steps {
                 withCredentials([string(credentialsId: 'NVD_API_KEY', variable: 'NVD_API_KEY')]) {
-                    dependencyCheck additionalArguments: "--scan ./ --disableYarnAudit --disableNodeAudit --nvdApiKey=$NVD_API_KEY", odcInstallation: 'DP-Check'
+                    sh '''
+                        mkdir -p owasp-report
+                        mkdir -p /var/lib/jenkins/owasp-data || true
+                        chown -R jenkins:jenkins /var/lib/jenkins/owasp-data || true
+
+                        dependency-check \
+                            --data /var/lib/jenkins/owasp-data \
+                            --project "Netflix" \
+                            --scan ./ \
+                            --format HTML \
+                            --format XML \
+                            --out owasp-report \
+                            --disableYarnAudit \
+                            --disableNodeAudit \
+                            --nvdApiKey $NVD_API_KEY
+                    '''
                 }
-                    dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
-        }
+        }   
 
         stage('Trivy File System Scan') {
             steps {
