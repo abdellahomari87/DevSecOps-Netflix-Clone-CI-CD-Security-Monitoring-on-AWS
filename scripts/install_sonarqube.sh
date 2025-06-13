@@ -40,16 +40,16 @@ echo "⏳ Waiting for SonarQube to be reachable on port 9000..."
 for i in {1..30}; do
   if curl -s -o /dev/null -w "%{http_code}" http://localhost:9000 | grep -q "200"; then
     echo "✅ SonarQube is up!"
-    echo "🌐 Access it at: http://<your-EC2-public-IP>:9000"
-    echo "🔑 Default credentials → Login: admin | Password: admin"
-    exit 0
+    break
   fi
   echo "⌛ Still waiting ($i/30)..."
   sleep 5
 done
 
-echo "❌ SonarQube did not start in expected time. Check logs with:"
-echo "   sudo docker logs -f sonarqube"
-exit 1
-echo "🟢 SonarQube is running. Press Ctrl+C to exit but SonarQube will keep running in the background."
-tail -f /dev/null
+echo "🌐 Access SonarQube at: http://<your-EC2-public-IP>:9000"
+echo "🔑 Default credentials → Login: admin | Password: admin"
+echo "✅ Installation completed! Keeping the SSH session alive."
+echo "🛑 Press Ctrl+C to exit this session."
+
+# Garde la session SSH active après installation
+exec /bin/bash
